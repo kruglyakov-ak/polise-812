@@ -1,9 +1,16 @@
 <template>
-  <div></div>
+  <div>
+    <UsersList />
+  </div>
 </template>
 
 <script>
-export default {};
+import UsersList from "@/components/UsersList.vue";
+export default {
+  components: {
+    UsersList,
+  },
+};
 </script>
 
 <style lang="scss" scoped></style>
