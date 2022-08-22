@@ -22,5 +22,9 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
+
+  @media (max-width: 400px) {
+    font-size: 0.8em;
+  }
 }
 </style>

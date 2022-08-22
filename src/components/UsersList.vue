@@ -29,7 +29,8 @@ export default {
   width: 90vw;
   height: 90vh;
   box-shadow: 0 2px 8px 0 rgba(35, 47, 53, 0.09);
-  overflow: auto;
+  overflow-y: scroll;
+  overflow-x: hidden;
   scrollbar-width: thin;
 
   @media (max-width: 800px) {
