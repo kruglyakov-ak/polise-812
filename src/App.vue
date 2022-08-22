@@ -5,7 +5,15 @@
 </template>
 
 <style lang="scss">
+*,
+*::after,
+*::before {
+  box-sizing: border-box;
+}
+
 body {
+  font-family: Arial, Helvetica, sans-serif;
+  color: $color-gray;
   margin: 0;
   padding: 0;
   background-color: $gray;
