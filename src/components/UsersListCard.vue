@@ -1,6 +1,13 @@
 <template>
   <div class="user-card">
-    <img width="150" height="150" :src="avatar.thumbnailUrl" :alt="user.name" />
+    <LoaderSpiner class="loader" v-if="avatarLoading" />
+    <img
+      v-else
+      width="150"
+      height="150"
+      :src="avatar.thumbnailUrl"
+      :alt="user.name"
+    />
     <div class="card-desc">
       <p class="name">{{ user.name }}</p>
       <p class="city">Город: {{ user.address.city }}</p>
@@ -10,6 +17,7 @@
 </template>
 
 <script>
+import LoaderSpiner from "@/components/LoaderSpiner.vue";
 export default {
   props: {
     user: {
@@ -20,6 +28,7 @@ export default {
   data() {
     return {
       avatar: "",
+      avatarLoading: true,
     };
   },
   mounted() {
@@ -27,7 +36,11 @@ export default {
       .then((response) => response.json())
       .then((json) => {
         this.avatar = json;
+        this.avatarLoading = false;
       });
+  },
+  components: {
+    LoaderSpiner,
   },
 };
 </script>
@@ -55,6 +68,22 @@ export default {
 
   & img {
     margin-right: 30px;
+    cursor: pointer;
+
+    @media (max-width: 800px) {
+      margin-right: 10px;
+      width: 100px;
+      height: 100px;
+    }
+  }
+
+  .loader {
+    width: 150px;
+    height: 150px;
+    margin-right: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     cursor: pointer;
 
     @media (max-width: 800px) {
