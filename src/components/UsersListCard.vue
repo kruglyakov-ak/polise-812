@@ -1,6 +1,9 @@
 <template>
   <div class="user-card">
-    <router-link :to="{ name: 'userCard', params: { id: user.id } }">
+    <router-link
+      class="link"
+      :to="{ name: 'userCard', params: { id: user.id } }"
+    >
       <LoaderSpiner class="loader" v-if="avatarLoading" />
       <img
         v-else
@@ -73,12 +76,17 @@ export default {
     background-color: $blueGray;
   }
 
-  & img {
+  .link {
     margin-right: 30px;
+    @media (max-width: 800px) {
+      margin-right: 10px;
+    }
+  }
+
+  & img {
     cursor: pointer;
 
     @media (max-width: 800px) {
-      margin-right: 10px;
       width: 100px;
       height: 100px;
     }
@@ -105,16 +113,6 @@ export default {
     display: flex;
     flex-direction: column;
     justify-content: space-around;
-
-    .name {
-      font-weight: bold;
-      color: inherit;
-      text-decoration: none;
-
-      &:visited {
-        color: inherit;
-      }
-    }
 
     p {
       margin: 0;
