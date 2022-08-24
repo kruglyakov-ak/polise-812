@@ -11,6 +11,16 @@
   box-sizing: border-box;
 }
 
+a {
+  text-decoration: none;
+  color: inherit;
+  font-weight: bold;
+
+  &:visited {
+    color: inherit;
+  }
+}
+
 body {
   font-family: Arial, Helvetica, sans-serif;
   color: $color-gray;
