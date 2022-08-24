@@ -1,20 +1,35 @@
 <template>
   <div class="user">
     <MainNav />
+    <UserCard :avatar="this.avatar" :user="this.user" />
   </div>
 </template>
 
 <script>
 import MainNav from "@/components/MainNav.vue";
+import UserCard from "@/components/UserCard.vue";
 
 export default {
   data() {
     return {
       id: this.$route.params.id,
+      user: {},
+      avatar: {},
     };
   },
   components: {
     MainNav,
+    UserCard,
+  },
+  mounted() {
+    fetch(`https://jsonplaceholder.typicode.com/users/${this.id}`)
+      .then((response) => response.json())
+      .then((json) => {
+        this.user = json;
+        fetch(`https://jsonplaceholder.typicode.com/photos/${this.id}`).then(
+          (response) => response.json().then((json) => (this.avatar = json))
+        );
+      });
   },
 };
 </script>
