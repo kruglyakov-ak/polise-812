@@ -1,5 +1,5 @@
 <template>
-  <div class="user-list">
+  <div class="users-list">
     <div class="title-wrap">
       <h1>Список пользователей</h1>
     </div>
@@ -21,7 +21,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.user-list {
+.users-list {
   background-color: $lightGray;
   display: flex;
   flex-direction: column;
