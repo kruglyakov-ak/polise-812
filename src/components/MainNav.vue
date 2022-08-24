@@ -18,7 +18,7 @@ nav {
   padding: 20px;
   list-style: none;
   display: flex;
-  justify-content: end;
+  justify-content: flex-end;
 }
 
 .link {
@@ -28,7 +28,7 @@ nav {
   width: 100%;
   padding: 0 10px;
   height: 50px;
-  border: 1px solid $lightGray;
+  border: 1px solid $deepGray;
 
   &:hover,
   &:focus {
