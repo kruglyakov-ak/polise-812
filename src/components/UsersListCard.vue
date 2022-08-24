@@ -1,15 +1,22 @@
 <template>
   <div class="user-card">
-    <LoaderSpiner class="loader" v-if="avatarLoading" />
-    <img
-      v-else
-      width="150"
-      height="150"
-      :src="avatar.thumbnailUrl"
-      :alt="user.name"
-    />
+    <router-link :to="{ name: 'userCard', params: { id: user.id } }">
+      <LoaderSpiner class="loader" v-if="avatarLoading" />
+      <img
+        v-else
+        width="150"
+        height="150"
+        :src="avatar.thumbnailUrl"
+        :alt="user.name"
+      />
+    </router-link>
     <div class="card-desc">
-      <p class="name">{{ user.name }}</p>
+      <router-link
+        class="name"
+        :to="{ name: 'userCard', params: { id: user.id } }"
+      >
+        <p>{{ user.name }}</p>
+      </router-link>
       <p class="city">Город: {{ user.address.city }}</p>
       <p class="email">email: {{ user.email }}</p>
     </div>
@@ -101,7 +108,12 @@ export default {
 
     .name {
       font-weight: bold;
-      cursor: pointer;
+      color: inherit;
+      text-decoration: none;
+
+      &:visited {
+        color: inherit;
+      }
     }
 
     p {
