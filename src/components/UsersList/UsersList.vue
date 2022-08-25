@@ -29,7 +29,7 @@ export default {
   max-width: 1200px;
   height: 100vh;
   box-shadow: 0 2px 8px 0 rgba(35, 47, 53, 0.09);
-  overflow-y: scroll;
+  overflow-y: auto;
   overflow-x: hidden;
   scrollbar-width: thin;
 
