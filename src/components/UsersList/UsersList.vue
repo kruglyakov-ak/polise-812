@@ -8,7 +8,7 @@
 </template>
 
 <script>
-import UsersListCard from "@/components/UsersListCard.vue";
+import UsersListCard from "@/components/UsersList/UsersListCard.vue";
 export default {
   components: { UsersListCard },
   props: {
@@ -26,8 +26,8 @@ export default {
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: 90vw;
-  height: 90vh;
+  max-width: 1200px;
+  height: 100vh;
   box-shadow: 0 2px 8px 0 rgba(35, 47, 53, 0.09);
   overflow-y: scroll;
   overflow-x: hidden;
