@@ -60,7 +60,7 @@ export default {
   background-color: $white;
   display: flex;
   align-items: center;
-  width: 80%;
+  width: 530px;
   padding: 15px;
   margin-bottom: 20px;
   box-shadow: 0 2px 8px 0 rgba(35, 47, 53, 0.09);
