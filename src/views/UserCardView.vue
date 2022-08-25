@@ -7,7 +7,7 @@
 
 <script>
 import MainNav from "@/components/MainNav.vue";
-import UserCard from "@/components/UserCard.vue";
+import UserCard from "@/components/UserCard/UserCard.vue";
 
 export default {
   data() {
@@ -26,19 +26,25 @@ export default {
       .then((response) => response.json())
       .then((json) => {
         this.user = json;
-        fetch(`https://jsonplaceholder.typicode.com/photos/${this.id}`).then(
-          (response) => response.json().then((json) => (this.avatar = json))
-        );
       });
+    fetch(`https://jsonplaceholder.typicode.com/photos/${this.id}`).then(
+      (response) => response.json().then((json) => (this.avatar = json))
+    );
   },
 };
 </script>
 
 <style lang="scss" scoped>
 .user {
-  width: 90vw;
-  height: 90vh;
+  max-width: 1200px;
+  height: 100vh;
   background-color: $white;
   box-shadow: 0 2px 8px 0 rgba(35, 47, 53, 0.09);
+
+  @media (max-width: 800px) {
+    width: 100vw;
+    height: 100vh;
+    background-color: $white;
+  }
 }
 </style>

@@ -7,7 +7,7 @@
 </template>
 
 <script>
-import UsersList from "@/components/UsersList.vue";
+import UsersList from "@/components/UsersList/UsersList.vue";
 import LoaderSpiner from "@/components/LoaderSpiner.vue";
 
 export default {
