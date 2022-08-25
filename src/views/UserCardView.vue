@@ -41,6 +41,9 @@ export default {
   background-color: $white;
   box-shadow: 0 2px 8px 0 rgba(35, 47, 53, 0.09);
 
+  scrollbar-width: thin;
+  overflow-y: auto;
+
   @media (max-width: 800px) {
     width: 100vw;
     height: 100vh;
