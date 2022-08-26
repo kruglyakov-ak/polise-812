@@ -1,11 +1,11 @@
 <template>
   <div>
-    <ol>
+    <ul>
       <li v-for="post in posts" :key="post.id">
-        <p>{{ post.title }}</p>
-        <p>{{ post.body }}</p>
+        <p class="title">{{ post.title }}</p>
+        <p class="descrioption">{{ post.body }}</p>
       </li>
-    </ol>
+    </ul>
   </div>
 </template>
 
@@ -20,4 +20,16 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+ul {
+  list-style: none;
+  padding: 0;
+  .title {
+    background-color: $lightGray;
+    margin-bottom: 5px;
+  }
+  .descrioption {
+    margin-top: 5px;
+  }
+}
+</style>

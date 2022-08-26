@@ -17,8 +17,8 @@
         :isAlbumTabActive="isAlbumTabActive"
         @onTabClick="onTabClick"
       />
-      <UserCardAlbums v-if="isAlbumTabActive" />
-      <UserCardNews v-else />
+      <UserCardAlbums v-if="isAlbumTabActive && albums" :albums="albums" />
+      <UserCardPosts v-else-if="!isAlbumTabActive && posts" :posts="posts" />
     </div>
   </div>
 </template>
@@ -27,17 +27,32 @@
 import LoaderSpiner from "@/components/LoaderSpiner.vue";
 import UserCardTabs from "@/components/UserCard/UserCardTabs.vue";
 import UserCardAlbums from "@/components/UserCard/UserCardAlbums.vue";
-import UserCardNews from "@/components/UserCard/UserCardNews.vue";
+import UserCardPosts from "@/components/UserCard/UserCardPosts.vue";
 
 export default {
   data() {
     return {
       isAlbumTabActive: true,
+      albums: [],
+      posts: [],
+      id: this.$route.params.id,
     };
   },
   props: {
     user: { type: Object, required: true },
     avatar: { type: Object, required: true },
+  },
+  mounted() {
+    fetch(`https://jsonplaceholder.typicode.com/albums?userId=${this.id}`)
+      .then((response) => response.json())
+      .then((json) => {
+        this.albums = json;
+      });
+    fetch(`https://jsonplaceholder.typicode.com/posts?userId=${this.id}`)
+      .then((response) => response.json())
+      .then((json) => {
+        this.posts = json;
+      });
   },
   methods: {
     onTabClick() {
@@ -48,7 +63,7 @@ export default {
     LoaderSpiner,
     UserCardTabs,
     UserCardAlbums,
-    UserCardNews,
+    UserCardPosts,
   },
 };
 </script>
