@@ -1,7 +1,9 @@
 <template>
   <div>
-    <p v-for="album in albums" :key="album.id">{{ album.title }}</p>
-    <AlbumSwiper />
+    <div v-for="album in albums" :key="album.id">
+      <p class="title">{{ album.title }}</p>
+      <AlbumSwiper :album="album" />
+    </div>
   </div>
 </template>
 
@@ -20,4 +22,9 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.title {
+  margin-top: 20px;
+  background-color: $lightGray;
+}
+</style>

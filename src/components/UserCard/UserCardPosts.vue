@@ -26,6 +26,8 @@ ul {
   padding: 0;
   .title {
     background-color: $lightGray;
+    margin-top: 20px;
+
     margin-bottom: 5px;
   }
   .descrioption {
