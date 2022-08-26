@@ -1,17 +1,43 @@
 <template>
-  <v-carousel cycle height="400" hide-delimiter-background show-arrows-on-hover>
-    <v-carousel-item v-for="(slide, i) in slides" :key="i">
-      <v-sheet :color="colors[i]" height="100%">
-        <v-row class="fill-height" align="center" justify="center">
-          <div class="text-h2">{{ slide }} Slide</div>
-        </v-row>
-      </v-sheet>
+  <v-carousel cycle height="200" hide-delimiter-background show-arrows-on-hover>
+    <LoaderSpiner v-if="photosLoading" />
+    <v-carousel-item
+      v-else
+      v-for="(photo, i) in photos"
+      :key="i"
+      :src="photo.url"
+    >
     </v-carousel-item>
   </v-carousel>
 </template>
 
 <script>
-export default {};
+import LoaderSpiner from "./LoaderSpiner.vue";
+export default {
+  data() {
+    return {
+      photos: [],
+      photosLoading: true,
+    };
+  },
+  props: {
+    album: {
+      type: Object,
+      required: true,
+    },
+  },
+  mounted() {
+    fetch(
+      `https://jsonplaceholder.typicode.com/albums/${this.album.id}/photos?_limit=5`
+    )
+      .then((response) => response.json())
+      .then((json) => {
+        this.photos = json;
+        this.photosLoading = false;
+      });
+  },
+  components: { LoaderSpiner },
+};
 </script>
 
 <style lang="scss" scoped></style>
