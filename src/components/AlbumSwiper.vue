@@ -1,5 +1,5 @@
 <template>
-  <v-carousel cycle height="200" hide-delimiter-background show-arrows-on-hover>
+  <v-carousel height="200" hide-delimiter-background show-arrows-on-hover>
     <LoaderSpiner v-if="photosLoading" />
     <v-carousel-item
       v-else
