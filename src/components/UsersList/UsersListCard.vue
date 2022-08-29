@@ -2,7 +2,11 @@
   <div class="user-card">
     <router-link
       class="link"
-      :to="{ name: 'userCard', params: { id: user.id } }"
+      :to="{
+        name: 'userCard',
+        params: { id: user.id },
+        query: { page: 'albums' },
+      }"
     >
       <LoaderSpiner class="loader" v-if="avatarLoading" />
       <img
@@ -16,7 +20,11 @@
     <div class="card-desc">
       <router-link
         class="name"
-        :to="{ name: 'userCard', params: { id: user.id } }"
+        :to="{
+          name: 'userCard',
+          params: { id: user.id },
+          query: { page: 'albums' },
+        }"
       >
         <p>{{ user.name }}</p>
       </router-link>

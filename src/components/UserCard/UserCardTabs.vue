@@ -2,15 +2,15 @@
   <div class="tabs">
     <button
       @click="onTabClick"
-      :class="{ active: isAlbumTabActive }"
-      :disabled="isAlbumTabActive"
+      :class="{ active: activeTab === 'albums' }"
+      :disabled="activeTab === 'albums'"
     >
       Альбомы
     </button>
     <button
       @click="onTabClick"
-      :class="{ active: !isAlbumTabActive }"
-      :disabled="!isAlbumTabActive"
+      :class="{ active: activeTab === 'posts' }"
+      :disabled="activeTab === 'posts'"
     >
       Посты
     </button>
@@ -20,14 +20,14 @@
 <script>
 export default {
   props: {
-    isAlbumTabActive: {
-      type: Boolean,
-      default: true,
+    activeTab: {
+      type: String,
+      default: "album",
     },
   },
   methods: {
     onTabClick() {
-      this.$emit("onTabClick", this.isAlbumTabActive);
+      this.$emit("onTabClick", this.activeTab);
     },
   },
 };

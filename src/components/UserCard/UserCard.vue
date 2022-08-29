@@ -13,19 +13,16 @@
       <LoaderSpiner v-else />
     </div>
     <div class="right-content">
-      <UserCardTabs
-        :isAlbumTabActive="isAlbumTabActive"
-        @onTabClick="onTabClick"
-      />
+      <UserCardTabs :activeTab="activeTab" @onTabClick="onTabClick" />
+      <div v-if="activeTab === 'albums'">
+        <LoaderSpiner v-if="albumsLoading" />
+        <UserCardAlbums v-else :albums="getAlbums" />
+      </div>
+      <div v-else-if="activeTab === 'posts'">
+        <LoaderSpiner v-if="postsLoading" />
 
-      <UserCardAlbums
-        v-if="isAlbumTabActive && getAlbums"
-        :albums="getAlbums"
-      />
-      <UserCardPosts
-        v-else-if="!isAlbumTabActive && getPost"
-        :posts="getPost"
-      />
+        <UserCardPosts v-else :posts="getPost" />
+      </div>
     </div>
   </div>
 </template>
@@ -40,8 +37,10 @@ import { mapGetters, mapActions } from "vuex";
 export default {
   data() {
     return {
-      isAlbumTabActive: true,
+      activeTab: this.$route.query.page,
       id: this.$route.params.id,
+      albumsLoading: true,
+      postsLoading: true,
     };
   },
   props: {
@@ -51,13 +50,29 @@ export default {
   computed: mapGetters(["getPost", "getAlbums", "getAlbumsLoading"]),
   methods: {
     ...mapActions(["fetchPosts", "fetchAlbums", "resetCurrentUser"]),
+
     onTabClick() {
-      this.isAlbumTabActive = !this.isAlbumTabActive;
+      if (this.$route.query.page === "albums") {
+        this.$router.push({ query: { page: "posts" } });
+        this.activeTab = "posts";
+      } else {
+        this.$router.push({ query: { page: "albums" } });
+        this.activeTab = "albums";
+      }
+    },
+
+    async loadAlbums() {
+      await this.fetchAlbums(this.id);
+      this.albumsLoading = false;
+    },
+    async loadPosts() {
+      await this.fetchPosts(this.id);
+      this.postsLoading = false;
     },
   },
   mounted() {
-    this.fetchPosts(this.id);
-    this.fetchAlbums(this.id);
+    this.loadAlbums();
+    this.loadPosts();
   },
   beforeDestroy() {
     this.resetCurrentUser();
