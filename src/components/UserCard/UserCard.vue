@@ -17,8 +17,15 @@
         :isAlbumTabActive="isAlbumTabActive"
         @onTabClick="onTabClick"
       />
-      <UserCardAlbums v-if="isAlbumTabActive && albums" :albums="albums" />
-      <UserCardPosts v-else-if="!isAlbumTabActive && posts" :posts="posts" />
+
+      <UserCardAlbums
+        v-if="isAlbumTabActive && getAlbums"
+        :albums="getAlbums"
+      />
+      <UserCardPosts
+        v-else-if="!isAlbumTabActive && getPost"
+        :posts="getPost"
+      />
     </div>
   </div>
 </template>
@@ -28,13 +35,12 @@ import LoaderSpiner from "@/components/LoaderSpiner.vue";
 import UserCardTabs from "@/components/UserCard/UserCardTabs.vue";
 import UserCardAlbums from "@/components/UserCard/UserCardAlbums.vue";
 import UserCardPosts from "@/components/UserCard/UserCardPosts.vue";
+import { mapGetters, mapActions } from "vuex";
 
 export default {
   data() {
     return {
       isAlbumTabActive: true,
-      albums: [],
-      posts: [],
       id: this.$route.params.id,
     };
   },
@@ -42,22 +48,19 @@ export default {
     user: { type: Object, required: true },
     avatar: { type: Object, required: true },
   },
-  mounted() {
-    fetch(`https://jsonplaceholder.typicode.com/albums?userId=${this.id}`)
-      .then((response) => response.json())
-      .then((json) => {
-        this.albums = json;
-      });
-    fetch(`https://jsonplaceholder.typicode.com/posts?userId=${this.id}`)
-      .then((response) => response.json())
-      .then((json) => {
-        this.posts = json;
-      });
-  },
+  computed: mapGetters(["getPost", "getAlbums", "getAlbumsLoading"]),
   methods: {
+    ...mapActions(["fetchPosts", "fetchAlbums", "resetCurrentUser"]),
     onTabClick() {
       this.isAlbumTabActive = !this.isAlbumTabActive;
     },
+  },
+  mounted() {
+    this.fetchPosts(this.id);
+    this.fetchAlbums(this.id);
+  },
+  beforeDestroy() {
+    this.resetCurrentUser();
   },
   components: {
     LoaderSpiner,
