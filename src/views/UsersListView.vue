@@ -1,7 +1,7 @@
 <template>
   <div>
-    <LoaderSpiner v-if="loading" />
-    <UsersList v-else-if="users.length" :users="users" />
+    <LoaderSpiner v-if="getLoadingUsers" />
+    <UsersList v-else-if="getUsers.length" :users="getUsers" />
     <h1 v-else>Список пользователей пуст</h1>
   </div>
 </template>
@@ -9,22 +9,14 @@
 <script>
 import UsersList from "@/components/UsersList/UsersList.vue";
 import LoaderSpiner from "@/components/LoaderSpiner.vue";
+import { mapGetters, mapActions } from "vuex";
 
 export default {
   components: { UsersList, LoaderSpiner },
-  data() {
-    return {
-      users: [],
-      loading: true,
-    };
-  },
+  computed: mapGetters(["getLoadingUsers", "getUsers"]),
+  methods: mapActions(["fetchUsers", "fetchAvatars"]),
   mounted() {
-    fetch("https://jsonplaceholder.typicode.com/users")
-      .then((response) => response.json())
-      .then((json) => {
-        this.users = json;
-        this.loading = false;
-      });
+    this.fetchUsers();
   },
 };
 </script>
